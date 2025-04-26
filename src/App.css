@@ -1,0 +1,75 @@
+/* 
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import axios from 'axios'
+import Navbar from './components/Navbar'
+import RecipeList from './components/RecipeList'
+import RecipeForm from './components/RecipeForm'
+import RecipeDetail from './components/RecipeDetail'
+import Home from './components/Home'
+
+function App() {
+  const [recipes, setRecipes] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get('/api/recipes')
+        setRecipes(response.data)
+      } catch (error) {
+        console.error('Error fetching recipes:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchRecipes()
+  }, [])
+
+  const addRecipe = async (newRecipe) => {
+    try {
+      const response = await axios.post('/api/recipes', newRecipe)
+      setRecipes([...recipes, response.data])
+      return true
+    } catch (error) {
+      console.error('Error adding recipe:', error)
+      return false
+    }
+  }
+
+  const filteredRecipes = recipes.filter(recipe =>
+    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    recipe.category.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <h1>hello</h1>
+    <Router>
+
+      <div className="min-h-screen bg-gray-50">
+        <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <main className="container mx-auto px-4 py-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/recipes" element={<RecipeList recipes={filteredRecipes} />} />
+            <Route path="/recipes/new" element={<RecipeForm addRecipe={addRecipe} />} />
+            <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes} />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+    </div>
+  )
+}
+
+export default App */
