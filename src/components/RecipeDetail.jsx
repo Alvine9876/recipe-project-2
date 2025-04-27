@@ -86,4 +86,4 @@ function RecipeDetail({ recipes }) {
   )
 }
 
-export default RecipeDetail;
+export default RecipeDetail;  
