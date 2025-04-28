@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import axios from 'axios' // Add this import
+
 
 import Navbar from './components/Navbar'
 import RecipeList from './components/RecipeList'
@@ -16,8 +16,7 @@ function App() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        // For development, you might want to use mock data first
-        // Remove this when your backend is ready
+
         const mockRecipes = [
           {
             id: 1,
@@ -33,8 +32,7 @@ function App() {
           }
         ]
         setRecipes(mockRecipes)
-        // const response = await axios.get('/api/recipes')
-        // setRecipes(response.data)
+
       } catch (error) {
         console.error('Error fetching recipes:', error)
       } finally {
@@ -46,7 +44,7 @@ function App() {
 
   const addRecipe = async (newRecipe) => {
     try {
-      // For development, mock the response
+
       const mockResponse = {
         data: {
           ...newRecipe,
@@ -56,9 +54,7 @@ function App() {
       }
       setRecipes([...recipes, mockResponse.data])
       return true
-      // const response = await axios.post('/api/recipes', newRecipe)
-      // setRecipes([...recipes, response.data])
-      // return true
+
     } catch (error) {
       console.error('Error adding recipe:', error)
       return false
