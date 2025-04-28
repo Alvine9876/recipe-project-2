@@ -1,12 +1,29 @@
-# React + Vite
+# Recipe Book App 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A digital recipe organizer built with React that allows users to browse, add, edit, and delete recipes.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features 
+
+- **Browse all recipes** in a beautiful card layout
+- **View recipe details** with ingredients and instructions
+- **Add new recipes** with a user-friendly form
+- **Delete recipes** you no longer need
+- **Filter recipes** by category or search by name
+
+## Technologies Used 💻
+
+ React (Create React App)
+ React Router for navigation
+ CSS/Styled Components for styling
+ React Icons (optional)
+ Tailwind
+
+## Installation 
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Alvine9876/recipe-project-2
+   cd recipe-book
