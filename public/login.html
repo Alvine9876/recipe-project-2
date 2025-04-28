@@ -1,0 +1,54 @@
+<script>
+  document.addEventListener('DOMContentLoaded', async function() {
+    const loadEl = document.querySelector('#load');
+
+    try {
+      let app = firebase.app();
+      let features = [
+        'auth',
+      ].filter(feature => typeof app[feature] === 'function');
+      loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+
+      // Set up Google provider
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      // Check if already logged in
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // If user is logged in, go to homepage
+          window.location.href = '/index.html';
+        } else {
+          // If not logged in, create a login button
+          const loginButton = document.createElement('button');
+          loginButton.textContent = 'Sign in with Google';
+          loginButton.style.padding = '10px';
+          loginButton.style.marginTop = '20px';
+          loginButton.style.display = 'block';
+          loginButton.style.width = '100%';
+          loginButton.style.background = '#4285F4';
+          loginButton.style.color = 'white';
+          loginButton.style.border = 'none';
+          loginButton.style.borderRadius = '4px';
+          loginButton.style.fontSize = '16px';
+          loginButton.style.cursor = 'pointer';
+
+          loginButton.addEventListener('click', async () => {
+            try {
+              await firebase.auth().signInWithPopup(provider);
+              window.location.href = '/index.html';
+            } catch (error) {
+              console.error(error);
+              alert('Login Failed: ' + error.message);
+            }
+          });
+
+          document.querySelector('#message').appendChild(loginButton);
+        }
+      });
+
+    } catch (e) {
+      console.error(e);
+      loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+    }
+  });
+</script>

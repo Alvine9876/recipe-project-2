@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.8.4",
     "firebase": "^11.6.1",
+    "firebase-tools": "^14.2.1",
+    "g": "^2.0.1",
     "json-server": "^1.0.0-beta.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
