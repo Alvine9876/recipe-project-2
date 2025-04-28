@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+import { auth } from '../firebase'// 🔥 import auth from your firebase.js
+import { onAuthStateChanged } from 'firebase/auth' // 🔥 import onAuthStateChanged
 
 import Navbar from './components/Navbar'
 import RecipeList from './components/RecipeList'
@@ -12,11 +14,21 @@ function App() {
   const [recipes, setRecipes] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null) // 🔥 track the logged in user
+
+  // 🔥 check if the user is logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-
         const mockRecipes = [
           {
             id: 1,
@@ -35,16 +47,15 @@ function App() {
 
       } catch (error) {
         console.error('Error fetching recipes:', error)
-      } finally {
-        setLoading(false)
       }
     }
-    fetchRecipes()
-  }, [])
+    if (user) {
+      fetchRecipes()
+    }
+  }, [user])
 
   const addRecipe = async (newRecipe) => {
     try {
-
       const mockResponse = {
         data: {
           ...newRecipe,
@@ -74,6 +85,13 @@ function App() {
     )
   }
 
+  // 🔥 if user is NOT logged in, redirect to login page
+  if (!user) {
+    window.location.href = '/login.html'
+    return null
+  }
+
+  // 🔥 if user is logged in, show the app
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
