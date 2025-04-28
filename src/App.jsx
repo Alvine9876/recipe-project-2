@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import { auth } from '../firebase'// 🔥 import auth from your firebase.js
-import { onAuthStateChanged } from 'firebase/auth' // 🔥 import onAuthStateChanged
+import { auth } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 import Navbar from './components/Navbar'
 import RecipeList from './components/RecipeList'
@@ -14,9 +14,9 @@ function App() {
   const [recipes, setRecipes] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null) // 🔥 track the logged in user
+  const [user, setUser] = useState(null) 
 
-  // 🔥 check if the user is logged in
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
@@ -85,13 +85,11 @@ function App() {
     )
   }
 
-  // 🔥 if user is NOT logged in, redirect to login page
   if (!user) {
     window.location.href = '/login.html'
     return null
   }
 
-  // 🔥 if user is logged in, show the app
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
