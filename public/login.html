@@ -62,7 +62,7 @@
         }
       });
   
-      // Google login
+    
       document.getElementById('googleLogin').addEventListener('click', () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
@@ -75,7 +75,6 @@
           });
       });
   
-      // Email/password login
       document.getElementById('emailLogin').addEventListener('click', () => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -100,8 +99,7 @@
             }
           });
       });
-  
-      // 🆕 Email/password signup
+
       document.getElementById('signupBtn').addEventListener('click', () => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
