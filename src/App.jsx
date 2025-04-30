@@ -26,6 +26,7 @@ function App() {
             servings: 4,
             rating: 4.5,
           },
+
         ];
         setRecipes(mockRecipes);
       } catch (error) {
