@@ -1,30 +1,14 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-
-import { auth } from '../firebase'
-import { onAuthStateChanged } from 'firebase/auth'
-
-import Navbar from './components/Navbar'
-import RecipeList from './components/RecipeList'
-import RecipeForm from './components/RecipeForm'
-import RecipeDetail from './components/RecipeDetail'
-import Home from './components/Home'
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import RecipeList from './components/RecipeList';
+import RecipeForm from './components/RecipeForm';
+import RecipeDetail from './components/RecipeDetail';
+import Home from './components/Home';
 
 function App() {
-  const [recipes, setRecipes] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null) 
-
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
-      setLoading(false)
-    })
-
-    return () => unsubscribe()
-  }, [])
+  const [recipes, setRecipes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -32,63 +16,47 @@ function App() {
         const mockRecipes = [
           {
             id: 1,
-            title: "Sample Recipe",
-            description: "This is a sample recipe",
-            ingredients: ["Ingredient 1", "Ingredient 2"],
-            instructions: ["Step 1", "Step 2"],
-            category: "Dinner",
-            image: "",
+            title: 'Sample Recipe',
+            description: 'This is a sample recipe',
+            ingredients: ['water', 'flour'],
+            instructions: ['Boil water', 'Add flour while stiring'],
+            category: 'Dinner',
+            image: 'https://media.gettyimages.com/id/1138467989/photo/ugali-polentan-cuisine-tanzania.jpg?s=612x612&w=gi&k=20&c=vU7tEOVa1lyUol2C5fPNanVrAaNVdwpF1T3Qtcd1DCI=',
             cookingTime: 30,
             servings: 4,
-            rating: 4.5
-          }
-        ]
-        setRecipes(mockRecipes)
-
+            rating: 4.5,
+          },
+        ];
+        setRecipes(mockRecipes);
       } catch (error) {
-        console.error('Error fetching recipes:', error)
+        console.error('Error fetching recipes:', error);
       }
-    }
-    if (user) {
-      fetchRecipes()
-    }
-  }, [user])
+    };
+    fetchRecipes();
+  }, []);
 
   const addRecipe = async (newRecipe) => {
     try {
       const mockResponse = {
         data: {
           ...newRecipe,
-          id: Math.max(0, ...recipes.map(r => r.id)) + 1,
-          rating: 0
-        }
-      }
-      setRecipes([...recipes, mockResponse.data])
-      return true
-
+          id: Math.max(0, ...recipes.map((r) => r.id)) + 1,
+          rating: 0,
+        },
+      };
+      setRecipes([...recipes, mockResponse.data]);
+      return true;
     } catch (error) {
-      console.error('Error adding recipe:', error)
-      return false
+      console.error('Error adding recipe:', error);
+      return false;
     }
-  }
+  };
 
-  const filteredRecipes = recipes.filter(recipe =>
-    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    recipe.category.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
-      </div>
-    )
-  }
-
-  if (!user) {
-    window.location.href = '/login.html'
-    return null
-  }
+  const filteredRecipes = recipes.filter(
+    (recipe) =>
+      recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      recipe.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <Router>
@@ -104,7 +72,7 @@ function App() {
         </main>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
